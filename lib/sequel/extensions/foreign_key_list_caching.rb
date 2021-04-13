@@ -1,4 +1,5 @@
 # frozen-string-literal: true
+
 #
 # The schema_caching extension adds a few methods to Sequel::Database
 # that make it easy to dump the parsed schema information to a file,
@@ -46,7 +47,6 @@
 #
 # Related module: Sequel::SchemaCaching
 
-#
 module Sequel
   module ForeignKeyListCaching
     # Dump the cached foreign key lists to the filename given in Marshal format.
@@ -56,14 +56,14 @@ module Sequel
         sch[table] = foreign_key_list(table)
       end
 
-      File.open(file, 'wb'){|f| f.write(Marshal.dump(sch))}
+      File.open(file, "wb") { |f| f.write(Marshal.dump(sch)) }
       nil
     end
 
     # Dump the cached schema to the filename given unless the file
     # already exists.
     def dump_foreign_key_list_cache?(file)
-      dump_schema_cache(file) unless File.exist?(file)
+      dump_foreign_key_list_cache(file) unless File.exist?(file)
     end
 
     # Replace the schema cache with the data from the given file, which
@@ -76,11 +76,11 @@ module Sequel
     # Replace the schema cache with the data from the given file if the
     # file exists.
     def load_foreign_key_list_cache?(file)
-      load_schema_cache(file) if File.exist?(file)
+      load_foreign_key_list_cache(file) if File.exist?(file)
     end
 
     # OpenSchema returns compound foreign key relationships as multiple rows
-    def foreign_key_list(table, opts=OPTS)
+    def foreign_key_list(table, opts = OPTS)
       return super unless @foreign_key_list_cache
 
       @foreign_key_list_cache[table.to_sym]
