@@ -28,7 +28,7 @@ module Sequel
     def foreign_key_list(table, opts = OPTS)
       return super unless @foreign_key_list_cache
 
-      @foreign_key_list_cache[table.to_sym]
+      @foreign_key_list_cache[table.to_sym] || super
     end
   end
 
